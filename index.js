@@ -21,7 +21,6 @@ appData.timecard.restore();
 // settings is deprecated.
 const rtm = new RtmClient(token, {
   dataStore: false,
-  logLevel: 'debug',
   useRtmConnect: true,
 });
 
@@ -42,7 +41,7 @@ rtm.on(RTM_EVENTS.MESSAGE, (message) => {
   // For structure of `message`, see https://api.slack.com/events/message
 
   // Log the message
-  console.log('New message: ', message);
+  // console.log('New message: ', message);
 
   // handle it
   appData.handler.handle(rtm, message);

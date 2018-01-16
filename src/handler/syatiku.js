@@ -36,10 +36,8 @@ class SyatikuCommand extends Command {
         cb("no one join ranking");
         return;
       }
-      console.log("rows: ", rows.length);
       var text = "name\tworking_sec\n";
       rows.forEach((e) => {
-        console.log("elem:", JSON.stringify(e));
         text += `${e.name}\t${e.working_sec}\n`;
       });
       cb(text);
