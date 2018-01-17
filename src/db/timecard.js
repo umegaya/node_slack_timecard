@@ -13,6 +13,10 @@ Pool.query(`CREATE TABLE IF NOT EXISTS ${TABLE} (` +
   if (error) { console.error(`fail to create database ${error.message}`); }
 });
 
+Pool.query(`create table ${MEMBER_TABLE} (user_id char(32) primary key, name char(32));`, (error) => {
+  if (error) { console.error(`fail to create database ${error.message}`); }
+});
+
 class Record {
   constructor(user_id, start_date) {
     this.user_id = user_id;
@@ -46,7 +50,7 @@ class Record {
     return Math.floor(date.getTime() / 1000);
   }
   static store(id, date, start_sec, end_sec) {
-    console.log(id, date, start_sec, end_sec);
+    console.log('store timecard record', id, date, start_sec, end_sec);
     Pool.query(`SELECT * FROM ${TABLE} WHERE user_id = ? AND start = FROM_UNIXTIME(?)`, [id, start_sec], (error, rows) => {
       if (error) {
         console.error(`select database error ${error.message}`);
@@ -55,7 +59,7 @@ class Record {
           if (error) { console.error(`update database error ${error.message}`); }
         });
       } else {
-        Pool.query(`INSERT INTO timecard2 VALUES(?, ?, FROM_UNIXTIME(?), FROM_UNIXTIME(?))`, [id, date, start_sec, end_sec], (error) => {
+        Pool.query(`INSERT INTO ${TABLE} VALUES(?, ?, FROM_UNIXTIME(?), FROM_UNIXTIME(?))`, [id, date, start_sec, end_sec], (error) => {
           if (error) { console.error(`insert database error ${error.message}`); }
         });
       }
@@ -76,7 +80,7 @@ class Timecard {
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
         var id = row.user_id;
-        console.log(`match ${row.user_id} ${row.start_sec}`);
+        console.log(`restore ${row.user_id} ${row.start_sec}`);
         this.users[id] = new Record(id, new Date(Number(row.start_sec) * 1000));
       }
     });

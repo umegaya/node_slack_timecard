@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-var pool = mysql.createPool(process.env.DEV_DBADDR || {
+var pool = mysql.createPool(process.env.DBADDR || {
   connectionLimit : 1,
   host     : 'testdb.host',
   user     : 'root',
@@ -10,6 +10,6 @@ var pool = mysql.createPool(process.env.DEV_DBADDR || {
 
 module.exports = {
 	Pool: pool,
-	TIMECARD_TABLE: 'timecard2',
+	TIMECARD_TABLE: 'timecard',
 	MEMBER_TABLE: 'names',
 };

@@ -58,7 +58,7 @@ rtm.on(RTM_EVENTS.MESSAGE, (message) => {
   appData.timecard.punch(data);
 });*/
 rtm.on(RTM_EVENTS.PRESENCE_CHANGE, (data) => {
-  console.log('PRESENCE_CHANGE: ', JSON.stringify(data));
+  //console.log('PRESENCE_CHANGE: ', JSON.stringify(data));
   appData.timecard.punch(data);
 });
 
