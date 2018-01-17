@@ -99,6 +99,10 @@ class Timecard {
   }
   punch(data) {
     var id = data["user"];
+    if (!id) {
+      console.error("user_id not set");
+      return;
+    }
     console.log(`timecard ${id} ${data["presence"]}`);
     if (data["presence"] == "active") {
       if (!(id in this.users)) {

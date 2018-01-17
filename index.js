@@ -12,6 +12,7 @@ const appData = {
 	handler: new Main([
 	  require('./src/handler/syatiku')
 	]),
+  connectData: null,
 };
 
 // restore timecard state
@@ -29,6 +30,7 @@ const rtm = new RtmClient(token, {
 rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (connectData) => {
   // Cache the data necessary for this app in memory
   console.log(`Logged in as ${connectData.self.id} of team ${connectData.team.id}`);
+  appData.connectData = connectData;
 });
 // The client will emit an RTM.RTM_CONNECTION_OPENED the connection is ready for
 // sending and recieving messages
@@ -49,10 +51,16 @@ rtm.on(RTM_EVENTS.MESSAGE, (message) => {
   appData.handler.handle(rtm, message);
 });
 rtm.on(RTM_EVENTS.MANUAL_PRESENCE_CHANGE, (data) => {
+  if (!data["user"]) {
+    data["user"] = appData.connectData.self.id;
+  }
   console.log('MANUAL_PRESENCE_CHANGE: ', JSON.stringify(data));
   appData.timecard.punch(data);
 });
 rtm.on(RTM_EVENTS.PRESENCE_CHANGE, (data) => {
+  if (!data["user"]) {
+    data["user"] = appData.connectData.self.id;
+  }
   console.log('PRESENCE_CHANGE: ', JSON.stringify(data));
   appData.timecard.punch(data);
 });
