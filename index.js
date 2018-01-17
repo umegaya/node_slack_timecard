@@ -33,8 +33,10 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (connectData) => {
 // The client will emit an RTM.RTM_CONNECTION_OPENED the connection is ready for
 // sending and recieving messages
 rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, () => {
-  rtm.subscribePresence(['U02B9JHTM', 'U02H3F9QQ']);
-  console.log(`Ready`);
+  appData.timecard.getMemberList((members) => {
+    rtm.subscribePresence(members);
+    console.log(`Ready`);
+  });
 });
 
 rtm.on(RTM_EVENTS.MESSAGE, (message) => {

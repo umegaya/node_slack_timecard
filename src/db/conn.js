@@ -11,4 +11,5 @@ var pool = mysql.createPool(process.env.DEV_DBADDR || {
 module.exports = {
 	Pool: pool,
 	TIMECARD_TABLE: 'timecard2',
+	MEMBER_TABLE: 'names',
 };

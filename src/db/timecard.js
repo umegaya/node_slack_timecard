@@ -1,4 +1,4 @@
-const { Pool, TIMECARD_TABLE } = require('./conn');
+const { Pool, TIMECARD_TABLE, MEMBER_TABLE } = require('./conn');
 
 var TABLE = TIMECARD_TABLE;
 
@@ -68,16 +68,34 @@ class Timecard {
     this.users = {}
   }
   restore() {
-    Pool.query(`SELECT user_id, UNIX_TIMESTAMP(start) FROM ${TABLE} WHERE start = end and date = ?`, [Record.date2ymd(new Date())], (error, rows) => {
+    Pool.query(`SELECT user_id, UNIX_TIMESTAMP(start) as start_sec FROM ${TABLE} WHERE start = end and date = ?`, [Record.date2ymd(new Date())], (error, rows) => {
       if (error) {
         console.error(`select database error ${error.message}`);
         return;
       }
       for (var i = 0; i < rows.length; i++) {
-        console.log(`match ${row[0]} ${row[1]}`);
-        this.users[id] = new Record(id, new Date(Number(row[1]) * 1000));
+        var row = rows[i];
+        var id = row.user_id;
+        console.log(`match ${row.user_id} ${row.start_sec}`);
+        this.users[id] = new Record(id, new Date(Number(row.start_sec) * 1000));
       }
     });
+  }
+  getMemberList(cb) {
+    Pool.query(`SELECT user_id FROM ${MEMBER_TABLE}`, (error, rows) => {
+      if (error) {
+        console.error(`select database error ${error.message}`);
+        cb(null);
+        return;
+      }
+      var members = [];
+      for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var id = row.user_id;
+        members.push(id);
+      }
+      cb(members);
+    });    
   }
   punch(data) {
     var id = data["user"];
