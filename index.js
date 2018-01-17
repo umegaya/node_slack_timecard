@@ -50,17 +50,14 @@ rtm.on(RTM_EVENTS.MESSAGE, (message) => {
   // handle it
   appData.handler.handle(rtm, message);
 });
-rtm.on(RTM_EVENTS.MANUAL_PRESENCE_CHANGE, (data) => {
+/*rtm.on(RTM_EVENTS.MANUAL_PRESENCE_CHANGE, (data) => {
   if (!data["user"]) {
     data["user"] = appData.connectData.self.id;
   }
   console.log('MANUAL_PRESENCE_CHANGE: ', JSON.stringify(data));
   appData.timecard.punch(data);
-});
+});*/
 rtm.on(RTM_EVENTS.PRESENCE_CHANGE, (data) => {
-  if (!data["user"]) {
-    data["user"] = appData.connectData.self.id;
-  }
   console.log('PRESENCE_CHANGE: ', JSON.stringify(data));
   appData.timecard.punch(data);
 });
