@@ -18,6 +18,10 @@ class Main {
   }
   handle(client, data) {
       var txt = data["text"];
+      if (!txt) {
+        console.error("invalid message data", JSON.stringify(data));
+        return;
+      }
       this.commands.forEach((e) => {
         var cmd = e;
         var args = cmd.match(txt);

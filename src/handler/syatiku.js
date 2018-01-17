@@ -15,7 +15,7 @@ class SyatikuCommand extends Command {
     if (m2) {
       return [m2[1], m2[2]];
     }
-    m3 = m[1].match(/[0-9]{1,2}/);
+    var m3 = m[1].match(/[0-9]{1,2}/);
     if (m3) {
       return [false, m3[0]];
     }
