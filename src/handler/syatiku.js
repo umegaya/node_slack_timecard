@@ -4,7 +4,12 @@ const { Pool, TIMECARD_TABLE } = require('../db/conn');
 class SyatikuCommand extends Command {
   match(txt) {
     var m = txt.match(/社畜ランキング\s*([\-0-9]*)/);
-    if (!m) { return false; }
+    if (!m) {
+      m = txt.match(/workaholic\s*ranking\s*([\-0-9]*)/);
+      if (!m) {
+        return false;
+      }
+    }
     if (!m[1]) { return [ false, false ]; }
     var m2 = m[1].match(/(20[0-9]{2})\-([0-9]{1,2})/);
     if (m2) {

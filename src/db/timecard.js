@@ -13,7 +13,7 @@ Pool.query(`CREATE TABLE IF NOT EXISTS ${TABLE} (` +
   if (error) { console.error(`fail to create database ${error.message}`); }
 });
 
-Pool.query(`create table ${MEMBER_TABLE} (user_id char(32) primary key, name char(32));`, (error) => {
+Pool.query(`CREATE TABLE IF NOT EXISTS ${MEMBER_TABLE} (user_id CHAR(32) primary key, name CHAR(32));`, (error) => {
   if (error) { console.error(`fail to create database ${error.message}`); }
 });
 
