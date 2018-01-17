@@ -1,11 +1,11 @@
 ## node_slack_timecard
-- 日本語のREADMEは[こちら](link)
+- 日本語のREADMEは[こちら](https://github.com/umegaya/node_slack_timecard#%E6%A9%9F%E8%83%BD)
 - measure team member's online time on slack. useful for calculating salary for part-time contract member
 
 ## feature
 - measure team member's online time by capturing their presence_change events on slack.
 - can show online time on slack as chat bot. keyword is `workaholic ranking` or `社畜ランキング`
-  - [img]
+  ![bot](https://user-images.githubusercontent.com/39032/35023680-122fadac-fb7f-11e7-9beb-944b9d20a972.png)]
 - aim high, go forward to the company #1 workaholic!!!
 
 ## setup
@@ -38,7 +38,7 @@
 ## 機能
 - チームメンバーがslackでオンラインだった時間（秒単位）をメンバーのオンライン、オフラインの状態変化のイベントを使って計測します
 - チャットボットとして、メンバーのオンライン時間をslack上に表示します。キーワードは`workaholic ranking` もしくは `社畜ランキング` です。
-  - [img]
+  ![bot](https://user-images.githubusercontent.com/39032/35023680-122fadac-fb7f-11e7-9beb-944b9d20a972.png)
 - 意識を高く持って、会社でいちばんの社畜を目指そう！！！
 
 ## 設定
